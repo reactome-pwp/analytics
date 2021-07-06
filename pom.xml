@@ -106,76 +106,23 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
-                <configuration>
-                    <excludes>
-                        <!-- Here we exclude the packages and files that we do NOT want to add to the jar file -->
-                        <!-- This excludes are either for deprecated modules or test components -->
-                        <exclude>**/test/**</exclude>
-                        <exclude>**/WidgetTest.*</exclude>
-                        <!--<exclude>**/*.java</exclude>-->
-                    </excludes>
-                </configuration>
             </plugin>
-
+            <!-- GWT Maven Plugin -->
             <plugin>
-                <groupId>net.ltgt.gwt.maven</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>1.0-rc-6</version>
+                <version>${gwtVersion}</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>import-sources</goal>
-                            <goal>compile</goal>
+                            <goal>resources</goal>
+                            <!-- Compile is not needed because other projects using the jar will do it -->
+                            <!--<goal>compile</goal>-->
+                            <goal>test</goal>
+                            <goal>generateAsync</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <moduleName>${appModule}</moduleName>
-                    <moduleShortName>${appName}</moduleShortName>
-                    <failOnError>true</failOnError>
-                    <compilerArgs>
-                        <arg>-compileReport</arg>
-                        <arg>-XcompilerMetrics</arg>
-                        <arg>-optimize</arg>
-                        <arg>9</arg>
-                        <arg>-style</arg>
-                        <arg>${gwtStyle}</arg>
-                    </compilerArgs>
-                    <devmodeArgs>
-                        <arg>-bindAddress</arg>
-                        <arg>0.0.0.0</arg>
-                    </devmodeArgs>
-                    <codeserverArgs>
-                        <arg>-bindAddress</arg>
-                        <arg>0.0.0.0</arg>
-                        <arg>-gen</arg>
-                        <arg>${project.build.directory}/.generated</arg>
-                    </codeserverArgs>
-                    <warDir>${project.build.directory}/${project.build.finalName}</warDir>
-                    <classpathScope>compile+runtime</classpathScope>
-                    <startupUrls>
-                        <startupUrl>index.html</startupUrl>
-                    </startupUrls>
-                </configuration>
-            </plugin>
-
-
-            <!-- Copy static web files before executing gwt:run -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <webappDirectory>${webappDirectory}</webappDirectory>
-                </configuration>
             </plugin>
 
             <plugin>
