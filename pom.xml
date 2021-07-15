@@ -28,7 +28,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <appModule>org.reactome.web.utils.analytics.client.GoogleAnalytics</appModule>
+        <appModule>org.reactome.web.utils.analytics.GoogleAnalytics</appModule>
         <appName>${appModule}</appName>
 
     </properties>
